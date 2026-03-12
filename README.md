@@ -19,3 +19,8 @@ https://github.com/user-attachments/assets/abf958f7-e73f-4c02-8cdf-cbe100b55ac8
 <img width="489" height="210" alt="3단계 1" src="https://github.com/user-attachments/assets/69505bec-daa2-4736-bebd-d1349ece2a52" />
 
 클릭 성공 하면 버튼이 5% 축소되도록 난이도 조절을 만들었다.<img width="272" height="141" alt="3단계 2" src="https://github.com/user-attachments/assets/7e1b0b24-c524-4cd8-aeeb-12fdbdf2e745" />
+
+
+구현 시 어려웠던 점
+1. visual studio를 사용하면서 자꾸 오류나 커밋이 잘 안되어 여러번 다시 만들었다.
+2. 
