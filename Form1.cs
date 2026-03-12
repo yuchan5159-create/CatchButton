@@ -156,6 +156,14 @@ namespace CatchButton3_3번째_시도_
         {
             // 점수 증가
             _score++;
+
+            // 클릭 성공 시 버튼 크기를 5% 줄임 (최소 크기 보장)
+            var btn = this.나잡아봐;
+            int newW = Math.Max(10, (int)(btn.Width * 0.95));
+            int newH = Math.Max(10, (int)(btn.Height * 0.95));
+            btn.Size = new Size(newW, newH);
+            // 크기 변경 후 폼 안에 있도록 조정
+            ClampButtonInsideForm();
             UpdateTitle();
 
             // 버튼 클릭 시 효과음 재생
