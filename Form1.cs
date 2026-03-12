@@ -160,6 +160,15 @@ namespace CatchButton3_3번째_시도_
             {
                 // 소리 재생 중 오류가 나더라도 앱이 중단되지 않도록 무시
             }
+            // 클릭 시 축하 메시지 표시
+            try
+            {
+                MessageBox.Show("축하합니다!!", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch
+            {
+                // 메시지 표시 실패 무시
+            }
         }
     }
 }
