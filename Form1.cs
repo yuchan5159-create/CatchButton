@@ -7,12 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 
 namespace CatchButton3_3번째_시도_
 {
     public partial class Form1 : Form
     {
         private readonly Random _rand = new Random();
+        private bool _isWaiting = false;
 
         public Form1()
         {
@@ -28,13 +30,23 @@ namespace CatchButton3_3번째_시도_
             UpdateTitle();
         }
 
-        private void Button_MouseEnter(object sender, EventArgs e)
+        private async void Button_MouseEnter(object sender, EventArgs e)
         {
+            if (await MaybeWaitAsync())
+                return;
+
             MoveButtonAway();
         }
 
-        private void Button_MouseMove(object sender, MouseEventArgs e)
+        private async void Button_MouseMove(object sender, MouseEventArgs e)
         {
+            // 이미 대기중이면 동작하지 않음
+            if (_isWaiting)
+                return;
+
+            if (await MaybeWaitAsync())
+                return;
+
             // 마우스가 버튼 내부에서 움직일 때도 도망가게 함
             MoveButtonAway();
         }
@@ -108,6 +120,46 @@ namespace CatchButton3_3번째_시도_
         {
             var p = this.나잡아봐.Location;
             this.Text = $"Button: ({p.X}, {p.Y})";
+        }
+
+        // 때때로 버튼이 잡히도록 최대 2초(랜덤) 동안 기다리게 함.
+        // 반환값: 기다렸다면 true (이벤트 핸들러는 이동을 중단), 아니면 false
+        private async Task<bool> MaybeWaitAsync()
+        {
+            // 이미 대기중이면 추가로 대기하지 않음
+            if (_isWaiting)
+                return true;
+
+            // 대기 확률: 30%
+            if (_rand.NextDouble() > 0.3)
+                return false;
+
+            // 랜덤 대기 시간: 200 ~ 2000 ms
+            int waitMs = _rand.Next(200, 2001);
+            _isWaiting = true;
+            try
+            {
+                await Task.Delay(waitMs);
+            }
+            finally
+            {
+                _isWaiting = false;
+            }
+
+            return true;
+        }
+
+        private void 나잡아봐_Click(object sender, EventArgs e)
+        {
+            // 버튼 클릭 시 효과음 재생
+            try
+            {
+                SystemSounds.Asterisk.Play();
+            }
+            catch
+            {
+                // 소리 재생 중 오류가 나더라도 앱이 중단되지 않도록 무시
+            }
         }
     }
 }

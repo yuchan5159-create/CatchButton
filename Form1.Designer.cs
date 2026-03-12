@@ -40,6 +40,7 @@
             this.나잡아봐.TabIndex = 0;
             this.나잡아봐.Text = "나 잡아봐";
             this.나잡아봐.UseVisualStyleBackColor = false;
+            this.나잡아봐.Click += new System.EventHandler(this.나잡아봐_Click);
             // 
             // Form1
             // 
