@@ -28,13 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.나잡아봐 = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // 나잡아봐
+            // 
+            this.나잡아봐.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.나잡아봐.Location = new System.Drawing.Point(298, 143);
+            this.나잡아봐.Name = "나잡아봐";
+            this.나잡아봐.Size = new System.Drawing.Size(181, 73);
+            this.나잡아봐.TabIndex = 0;
+            this.나잡아봐.Text = "나 잡아봐";
+            this.나잡아봐.UseVisualStyleBackColor = false;
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.나잡아봐);
+            this.Name = "Form1";
             this.Text = "Form1";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button 나잡아봐;
     }
 }
 
