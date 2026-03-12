@@ -15,6 +15,7 @@ namespace CatchButton3_3번째_시도_
     {
         private readonly Random _rand = new Random();
         private bool _isWaiting = false;
+        private int _score = 0;
 
         public Form1()
         {
@@ -72,6 +73,7 @@ namespace CatchButton3_3번째_시도_
                 double dist = Math.Sqrt(dx * dx + dy * dy);
                 if (dist > Math.Min(client.Width, client.Height) * 0.25) // 충분히 멀리
                 {
+                    try { SystemSounds.Exclamation.Play(); } catch { }
                     btn.Location = candidate;
                     UpdateTitle();
                     return;
@@ -79,6 +81,7 @@ namespace CatchButton3_3번째_시도_
             }
 
             // 실패하면 그냥 랜덤으로 배치
+            try { SystemSounds.Exclamation.Play(); } catch { }
             btn.Location = new Point(_rand.Next(0, maxX + 1), _rand.Next(0, maxY + 1));
             UpdateTitle();
         }
@@ -119,7 +122,7 @@ namespace CatchButton3_3번째_시도_
         private void UpdateTitle()
         {
             var p = this.나잡아봐.Location;
-            this.Text = $"Button: ({p.X}, {p.Y})";
+            this.Text = $"Button: ({p.X}, {p.Y})  Score: {_score}";
         }
 
         // 때때로 버튼이 잡히도록 최대 2초(랜덤) 동안 기다리게 함.
@@ -151,6 +154,10 @@ namespace CatchButton3_3번째_시도_
 
         private void 나잡아봐_Click(object sender, EventArgs e)
         {
+            // 점수 증가
+            _score++;
+            UpdateTitle();
+
             // 버튼 클릭 시 효과음 재생
             try
             {
@@ -158,16 +165,28 @@ namespace CatchButton3_3번째_시도_
             }
             catch
             {
-                // 소리 재생 중 오류가 나더라도 앱이 중단되지 않도록 무시
             }
-            // 클릭 시 축하 메시지 표시
+
+            // 축하 메시지(기존)를 계속 표시
             try
             {
                 MessageBox.Show("축하합니다!!", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch
             {
-                // 메시지 표시 실패 무시
+            }
+
+            // 점수 10점 도달 시 END 표시 및 버튼 비활성화
+            if (_score >= 10)
+            {
+                try
+                {
+                    MessageBox.Show("END", "게임 종료", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch
+                {
+                }
+                this.나잡아봐.Enabled = false;
             }
         }
     }
