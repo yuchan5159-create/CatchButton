@@ -22,6 +22,9 @@ namespace CatchButton3_3번째_시도_
             this.나잡아봐.MouseMove += Button_MouseMove;
             // 버튼 위치 변경 시 제목에 좌표 표시
             this.나잡아봐.LocationChanged += Button_LocationChanged;
+            // 폼 크기 변경 시 버튼이 폼 밖으로 나가지 않도록 처리
+            this.Resize += Form1_Resize;
+            this.ClientSizeChanged += Form1_ClientSizeChanged;
             UpdateTitle();
         }
 
@@ -70,6 +73,34 @@ namespace CatchButton3_3번째_시도_
 
         private void Button_LocationChanged(object sender, EventArgs e)
         {
+            UpdateTitle();
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            ClampButtonInsideForm();
+        }
+
+        private void Form1_ClientSizeChanged(object sender, EventArgs e)
+        {
+            ClampButtonInsideForm();
+        }
+
+        private void ClampButtonInsideForm()
+        {
+            var btn = this.나잡아봐;
+            var client = this.ClientSize;
+            int maxX = Math.Max(0, client.Width - btn.Width);
+            int maxY = Math.Max(0, client.Height - btn.Height);
+
+            int x = Math.Min(Math.Max(0, btn.Location.X), maxX);
+            int y = Math.Min(Math.Max(0, btn.Location.Y), maxY);
+
+            if (x != btn.Location.X || y != btn.Location.Y)
+            {
+                btn.Location = new Point(x, y);
+            }
+
             UpdateTitle();
         }
 
